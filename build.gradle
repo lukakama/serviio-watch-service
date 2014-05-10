@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+version = '1.0.0'
+
+dependencies {
+	compile fileTree(dir: "${System.env.SERVIIO_HOME}/lib", include: '*.jar', exclude: 'serviio-watch-service*.jar')
+}
+
+compileJava.doFirst {
+	if (!System.env.SERVIIO_HOME) {
+		throw new GradleException('set SERVIIO_HOME environment variable.')
+	}
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+tasks.withType(JavaCompile) {
+	options.fork = true
+}
+
+
